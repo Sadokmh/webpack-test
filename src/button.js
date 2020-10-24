@@ -5,7 +5,12 @@
  * @returns {Element}
  */
 const makeButton = buttonName => {
-  return `Button: ${buttonName}`;
+
+  const button = document.createElement('button');
+  button.innerText = buttonName;
+
+  return button;
+
 };
 
 module.exports = makeButton;
