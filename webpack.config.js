@@ -1,18 +1,19 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const {merge} = require("webpack-merge"); // it's doing object assign
 
-module.exports = ({mode}) => {
+const modeConfig = env => require(`./build-utils/webpack.${env}`)(env);
+
+module.exports = ({mode, presets} = { mode: "poduction", presets: [] }) => {
   console.log(mode);
-  return {
+  return merge(
+    {
     mode,
-    output: {
-      filename: "sadokFirstBundle.js"
-    },
     plugins: [
       new HtmlWebpackPlugin(),
       new webpack.ProgressPlugin()
     ]
-  }
-  
-
+  },
+  modeConfig(mode)
+  );
 };
